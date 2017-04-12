@@ -1,17 +1,16 @@
 icedfrisby-nock
 ===============
 
+[![CircleCI](https://img.shields.io/circleci/project/github/paulmelnikow/icedfrisby-nock.svg)](https://circleci.com/gh/paulmelnikow/icedfrisby-nock)
+[![Coveralls](https://img.shields.io/coveralls/paulmelnikow/icedfrisby-nock.svg)](https://coveralls.io/github/paulmelnikow/icedfrisby-nock)
+[![npm](https://img.shields.io/npm/v/icedfrisby-nock.svg)](https://www.npmjs.com/package/icedfrisby-nock)
+[![npm](https://img.shields.io/npm/l/icedfrisby-nock.svg)](https://www.npmjs.com/package/icedfrisby-nock)
+
+
 Concise support for mock requests in [IcedFrisby][].
 
 
-[![CircleCI](https://img.shields.io/circleci/project/github/paulmelnikow/icedfrisby-nock.svg)]()
-[![Coveralls](https://img.shields.io/coveralls/paulmelnikow/icedfrisby-nock.svg)]()
-[![npm](https://img.shields.io/npm/v/icedfrisby-nock.svg)]()
-[![npm](https://img.shields.io/npm/l/icedfrisby-nock.svg)]()
-
-
 [IcedFrisby]: https://github.com/MarkHerhold/IcedFrisby/
-
 
 Usage
 -----
