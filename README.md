@@ -23,6 +23,12 @@ frisby.create(...)
   .expectJSON(...)
 ```
 
+- For the Nock API, refer to the [Nock docs][].
+- For the IcedFrisby API, refer to the [IcedFrisby docs][].
+
+[Nock docs]: https://github.com/node-nock/nock#use
+[IcedFrisby docs]: https://github.com/MarkHerhold/IcedFrisby/blob/master/API.md
+
 
 Installation
 ------------
