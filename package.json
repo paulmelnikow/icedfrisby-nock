@@ -1,0 +1,32 @@
+{
+  "name": "icedfrisby-nock",
+  "description": "Concise support for mock requests in IcedFrisby",
+  "keywords": [
+    "frisby",
+    "icedfrisby",
+    "api",
+    "api-testing",
+    "mock"
+  ],
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "icedfrisby-nock.js",
+  "scripts": {
+    "lint": "eslint '**/*.js'",
+    "test": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:paulmelnikow/icedfrisby-nock.git"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-plugin-pnm": "^2.0.0",
+    "icedfrisby": "git+https://github.com/paulmelnikow/IcedFrisby.git#80e13f78a68fd0e7ea853a4439a4bba14533a7cb",
+    "nock": "^9.0.13"
+  },
+  "peerDependencies": {
+    "icedfrisby": "*",
+    "nock": "^9.0.13"
+  }
+}
