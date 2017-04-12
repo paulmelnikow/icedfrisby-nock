@@ -40,7 +40,7 @@ Installation
 ------------
 
 ```
-npm install --save-dev icedfrisby icedfrisby-nock
+npm install --save-dev icedfrisby nock icedfrisby-nock
 ```
 
 
