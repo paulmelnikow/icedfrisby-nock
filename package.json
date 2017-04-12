@@ -12,17 +12,23 @@
   "license": "MIT",
   "main": "icedfrisby-nock.js",
   "scripts": {
+    "coverage": "istanbul cover _mocha '**/*.spec.js'",
     "lint": "eslint '**/*.js'",
-    "test": "npm run lint"
+    "test:js": "mocha '**/*.spec.js'",
+    "test": "npm run lint && npm run test:js"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:paulmelnikow/icedfrisby-nock.git"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.13.0",
     "eslint": "^3.19.0",
     "eslint-plugin-pnm": "^2.0.0",
     "icedfrisby": "git+https://github.com/paulmelnikow/IcedFrisby.git#80e13f78a68fd0e7ea853a4439a4bba14533a7cb",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
     "nock": "^9.0.13"
   },
   "peerDependencies": {

@@ -70,6 +70,8 @@ const Factory = function (superClassIsh) {
   // Enable remote network connections.
   FrisbyNock.prototype.enableNetConnect = function (matcher) {
     nock.enableNetConnect(matcher)
+
+    return this
   }
 
   return FrisbyNock

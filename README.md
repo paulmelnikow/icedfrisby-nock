@@ -4,6 +4,12 @@ icedfrisby-nock
 Concise support for mock requests in [IcedFrisby][].
 
 
+[![CircleCI](https://img.shields.io/circleci/project/github/paulmelnikow/icedfrisby-nock.svg)]()
+[![Coveralls](https://img.shields.io/coveralls/paulmelnikow/icedfrisby-nock.svg)]()
+[![npm](https://img.shields.io/npm/v/icedfrisby-nock.svg)]()
+[![npm](https://img.shields.io/npm/l/icedfrisby-nock.svg)]()
+
+
 [IcedFrisby]: https://github.com/MarkHerhold/IcedFrisby/
 
 
@@ -21,6 +27,7 @@ frisby.create(...)
     .reply(200)
     .enableNetConnect())
   .expectJSON(...)
+  .toss()
 ```
 
 - For the Nock API, refer to the [Nock docs][].
