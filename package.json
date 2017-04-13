@@ -27,7 +27,7 @@
     "coveralls": "^2.13.0",
     "eslint": "^3.19.0",
     "eslint-plugin-pnm": "^2.0.0",
-    "icedfrisby": "git+https://github.com/paulmelnikow/IcedFrisby.git#80e13f78a68fd0e7ea853a4439a4bba14533a7cb",
+    "icedfrisby": "git+https://github.com/MarkHerhold/IcedFrisby.git#11152af05a1fff3b39265bea575df5da0b8f824f",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "nock": "^9.0.13"
