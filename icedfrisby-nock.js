@@ -7,22 +7,13 @@ const nock = require('nock')
 //
 // Read more about this pattern, and see what it looks like in ES6:
 // http://justinfagnani.com/2015/12/21/real-mixins-with-javascript-classes/
-const Factory = function (superClassIsh) {
-  let superClass, statics
-  if ((typeof superClassIsh) !== 'function') {
-    // Handle IcedFrisby which does not expose its constructor.
-    statics = superClassIsh
-    superClass = superClassIsh.create().constructor
-  } else {
-    statics = superClass = superClassIsh
-  }
-
+const Factory = function (superClass) {
   const FrisbyNock = function () {
     superClass.apply(this, arguments)
   }
 
   // Transfer all statics from super, then override some.
-  Object.assign(FrisbyNock, statics)
+  Object.assign(FrisbyNock, superClass)
   FrisbyNock.prototype = Object.create(superClass.prototype)
   delete FrisbyNock.version
   FrisbyNock.create = function (msg) {
