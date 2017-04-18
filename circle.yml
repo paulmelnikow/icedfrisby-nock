@@ -3,5 +3,8 @@ machine:
     version: 5.8.0
 
 test:
+  script:
+    - npm run lint
+    - npm run test:js
   post:
     - npm run coverage && coveralls < coverage/lcov.info

@@ -15,22 +15,57 @@ Concise support for mock requests in [IcedFrisby][].
 Usage
 -----
 
-```js
-// Compose icedfrisby with icedfrisby-nock.
-const frisby = require('icedfrisby-nock')(require('icedfrisby'))
+Compose icedfrisby with icedfrisby-nock.
 
+```js
+const frisby = require('icedfrisby-nock')(require('icedfrisby'))
+```
+
+Allow connections to localhost, but simulate failure for any other HTTP
+connections.
+
+```js
 frisby.create(...)
   .get(...)
-  .intercept(nock => nock('http://example.com')
-    .get('/foobar')
-    .reply(200)
-    .enableNetConnect())
+  .networkOff()
   .expectJSON(...)
   .toss()
 ```
 
-- For the Nock API, refer to the [Nock docs][].
-- For the IcedFrisby API, refer to the [IcedFrisby docs][].
+Mock one request, and simulate failure for any other HTTP connection.
+
+`intercept()` automatically invokes `networkOff()`.
+
+```js
+frisby.create(...)
+  .get(...)
+  .intercept(nock => nock('http://example.com')
+    .get('/foobar')
+    .reply(200))
+  .expectJSON(...)
+  .toss()
+```
+
+Mock one request and allow all other HTTP connections.
+
+```js
+frisby.create(...)
+  .get(...)
+  .intercept(nock => nock('http://example.com')
+    .get('/foobar')
+    .reply(200))
+  .networkOn()
+  .open()
+  .expectJSON(...)
+  .toss()
+```
+
+When using `intercept()` or `networkOff()`, the plugin restores network access
+when the test finishes.
+
+For the Nock API, refer to the [Nock docs][].
+
+For the IcedFrisby API, refer to the [IcedFrisby docs][].
 
 [Nock docs]: https://github.com/node-nock/nock#use
 [IcedFrisby docs]: https://github.com/MarkHerhold/IcedFrisby/blob/master/API.md

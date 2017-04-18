@@ -21,47 +21,39 @@ const Factory = function (superClass) {
   }
 
   // Set up intercepts. Pass in a setup function which takes one argument,
-  // `nock`, and returns an interceptor. The function is invoked before the
-  // test, and the returned interceptor is cleaned up afterward.
+  // `nock`, and returns a nock scope. The function is invoked before the
+  // test, and the returned scope is asserted afterward.
   //
-  // In the future: By default, disables remote network connections (other
-  // than localhost). To override this, chain on a call to
-  // `.enableNetConnect()`. This is currently disabled because there isn't
-  // a reliable way to clean it up.
+  // By default, disables remote network connections (other than localhost).
+  // To override this, chain on a call to `.enableNetConnect()`.
   //
   // You can only call this once per test.
   //
   // @param setup The setup function, receives `nock` and returns a nock object
   FrisbyNock.prototype.intercept = function (setup) {
+    let nockScope
 
-    // Work around a limitation in IcedFrisby that prevents reliably
-    // cleaning up in `after` callbacks.
-    this.before(() => { nock.cleanAll() })
+    this.before(() => { nockScope = setup(nock) })
+    // https://github.com/node-nock/nock#expectations
+    this.after(() => { nockScope.done() })
+    this.finally(() => { nock.cleanAll() })
 
-    // This is a bad idea right now, since there isn't a way to clean it up.
-    // this.before(function () {
-    //   nock.disableNetConnect()
-    //   nock.enableNetConnect(/(localhost|127\.0\.0\.1)/)
-    // })
-
-    let interceptor
-    this.before(() => { interceptor = setup(nock) })
-
-    // Due to a limitation in IcedFrisby, this isn't called reliably.
-    // https://github.com/MarkHerhold/IcedFrisby/issues/27#issuecomment-292600587
-    this.after(() => {
-      if (interceptor) {
-        nock.removeInterceptor(interceptor)
-      }
-    })
+    this.networkOff()
 
     return this
   }
 
-  // Enable remote network connections.
-  FrisbyNock.prototype.enableNetConnect = function (matcher) {
-    nock.enableNetConnect(matcher)
+  // Disallow unexpected remote network connections by simulating failure.
+  // Allows connections to localhost. Invoked automatically by `intercept()`.
+  FrisbyNock.prototype.networkOff = function () {
+    this.before(() => { nock.enableNetConnect(/(localhost|127\.0\.0\.1)/) })
+    this.finally(() => { nock.enableNetConnect() })
+    return this
+  }
 
+  // Enable remote network connections.
+  FrisbyNock.prototype.networkOn = function () {
+    this.before(() => { nock.enableNetConnect() })
     return this
   }
 

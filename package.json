@@ -23,17 +23,19 @@
     "url": "git@github.com:paulmelnikow/icedfrisby-nock.git"
   },
   "devDependencies": {
+    "caught": "^0.1.1",
     "chai": "^3.5.0",
     "coveralls": "^2.13.0",
     "eslint": "^3.19.0",
     "eslint-plugin-pnm": "^2.0.0",
-    "icedfrisby": "^1.0.0",
+    "icedfrisby": "^1.1.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
-    "nock": "^9.0.13"
+    "nock": "^9.0.13",
+    "node-fetch": "^1.6.3"
   },
   "peerDependencies": {
-    "icedfrisby": ">= 1.0.0",
+    "icedfrisby": ">= 1.1.0",
     "nock": "*"
   }
 }
