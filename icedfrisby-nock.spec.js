@@ -4,8 +4,9 @@ const nock = require('nock')
 const expect = require('chai').expect
 const fetch = require('node-fetch')
 const caught = require('caught')
+const { mix } = require('mixwith')
 
-const frisby = require('./icedfrisby-nock')(require('icedfrisby'))
+const frisby = mix(require('icedfrisby')).with(require('./icedfrisby-nock'))
 
 describe('icedfrisby-nock', function () {
   it('sets up a mock which works correctly', function () {

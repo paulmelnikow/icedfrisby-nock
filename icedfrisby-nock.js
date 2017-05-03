@@ -5,21 +5,9 @@ const nock = require('nock')
 // This is a subclass factory. It returns a constructor function (i.e., a
 // Frisby subclass) with these methods added in.
 //
-// Read more about this pattern, and see what it looks like in ES6:
+// Read more about this pattern:
 // http://justinfagnani.com/2015/12/21/real-mixins-with-javascript-classes/
-const Factory = function (superClass) {
-  const FrisbyNock = function () {
-    superClass.apply(this, arguments)
-  }
-
-  // Transfer all statics from super, then override some.
-  Object.assign(FrisbyNock, superClass)
-  FrisbyNock.prototype = Object.create(superClass.prototype)
-  delete FrisbyNock.version
-  FrisbyNock.create = function (msg) {
-    return new FrisbyNock(msg)
-  }
-
+const factory = superclass => class IcedFrisbyNock extends superclass {
   // Set up intercepts. Pass in a setup function which takes one argument,
   // `nock`, and returns a nock scope. The function is invoked before the
   // test, and the returned scope is asserted afterward.
@@ -30,7 +18,7 @@ const Factory = function (superClass) {
   // You can only call this once per test.
   //
   // @param setup The setup function, receives `nock` and returns a nock object
-  FrisbyNock.prototype.intercept = function (setup) {
+  intercept (setup) {
     let nockScope
 
     this.before(() => { nockScope = setup(nock) })
@@ -45,18 +33,16 @@ const Factory = function (superClass) {
 
   // Disallow unexpected remote network connections by simulating failure.
   // Allows connections to localhost. Invoked automatically by `intercept()`.
-  FrisbyNock.prototype.networkOff = function () {
+  networkOff () {
     this.before(() => { nock.enableNetConnect(/(localhost|127\.0\.0\.1)/) })
     this.finally(() => { nock.enableNetConnect() })
     return this
   }
 
   // Enable remote network connections.
-  FrisbyNock.prototype.networkOn = function () {
+  networkOn () {
     this.before(() => { nock.enableNetConnect() })
     return this
   }
-
-  return FrisbyNock
 }
-module.exports = Factory
+module.exports = factory

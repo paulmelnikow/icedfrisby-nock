@@ -21,6 +21,14 @@ Compose icedfrisby with icedfrisby-nock.
 const frisby = require('icedfrisby-nock')(require('icedfrisby'))
 ```
 
+or, more semantically, using the delightful [mixwith][]:
+
+```js
+const { mix } = require('mixwith')
+
+const frisby = mix(require('icedfrisby')).with(require('./icedfrisby-nock'))
+```
+
 Allow connections to localhost, but simulate failure for any other HTTP
 connections.
 
@@ -67,6 +75,7 @@ For the Nock API, refer to the [Nock docs][].
 
 For the IcedFrisby API, refer to the [IcedFrisby docs][].
 
+[mixwith]: https://github.com/justinfagnani/mixwith.js
 [Nock docs]: https://github.com/node-nock/nock#use
 [IcedFrisby docs]: https://github.com/MarkHerhold/IcedFrisby/blob/master/API.md
 
