@@ -79,6 +79,12 @@ npm install --save-dev icedfrisby nock icedfrisby-nock
 ```
 
 
+Who's using this
+----------------
+
+This project was developed for testing [Shields.io](https://shields.io/).
+
+
 Contribute
 ----------
 
