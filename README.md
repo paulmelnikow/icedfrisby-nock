@@ -63,7 +63,6 @@ frisby.create(...)
     .get('/foobar')
     .reply(200))
   .networkOn()
-  .open()
   .expectJSON(...)
   .toss()
 ```
