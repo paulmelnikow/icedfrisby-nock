@@ -26,7 +26,7 @@
     "caught": "^0.1.1",
     "chai": "^3.5.0",
     "coveralls": "^2.13.0",
-    "eslint": "^3.19.0",
+    "eslint": "^4.19.1",
     "eslint-plugin-pnm": "^2.0.0",
     "icedfrisby": "^1.2.0",
     "istanbul": "^0.4.5",
