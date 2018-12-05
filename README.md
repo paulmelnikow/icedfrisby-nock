@@ -1,19 +1,15 @@
-icedfrisby-nock
-===============
+# icedfrisby-nock
 
 [![CircleCI](https://img.shields.io/circleci/project/github/paulmelnikow/icedfrisby-nock.svg)](https://circleci.com/gh/paulmelnikow/icedfrisby-nock)
 [![Coveralls](https://img.shields.io/coveralls/paulmelnikow/icedfrisby-nock.svg)](https://coveralls.io/github/paulmelnikow/icedfrisby-nock)
 [![npm](https://img.shields.io/npm/v/icedfrisby-nock.svg)](https://www.npmjs.com/package/icedfrisby-nock)
 [![npm](https://img.shields.io/npm/l/icedfrisby-nock.svg)](https://www.npmjs.com/package/icedfrisby-nock)
 
-
 Concise support for mock requests in [IcedFrisby][].
 
+[icedfrisby]: https://github.com/MarkHerhold/IcedFrisby/
 
-[IcedFrisby]: https://github.com/MarkHerhold/IcedFrisby/
-
-Usage
------
+## Usage
 
 Compose icedfrisby with icedfrisby-nock.
 
@@ -75,40 +71,30 @@ For the Nock API, refer to the [Nock docs][].
 For the IcedFrisby API, refer to the [IcedFrisby docs][].
 
 [mixwith]: https://github.com/justinfagnani/mixwith.js
-[Nock docs]: https://github.com/node-nock/nock#use
-[IcedFrisby docs]: https://github.com/MarkHerhold/IcedFrisby/blob/master/API.md
+[nock docs]: https://github.com/node-nock/nock#use
+[icedfrisby docs]: https://github.com/MarkHerhold/IcedFrisby/blob/master/API.md
 
-
-Installation
-------------
+## Installation
 
 ```
 npm install --save-dev icedfrisby nock icedfrisby-nock
 ```
 
-
-Who's using this
-----------------
+## Who's using this
 
 This project was developed for testing [Shields.io](https://shields.io/).
 
-
-Contribute
-----------
+## Contribute
 
 - Issue Tracker: https://github.com/paulmelnikow/icedfrisby-nock/issues
 - Source Code: https://github.com/paulmelnikow/icedfrisby-nock
 
 Pull requests welcome!
 
-
-Support
--------
+## Support
 
 If you are having issues, please let me know.
 
-
-License
--------
+## License
 
 The project is licensed under the MIT license.
