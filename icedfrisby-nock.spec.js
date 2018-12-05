@@ -47,7 +47,7 @@ describe('icedfrisby-nock', function() {
         expect.fail('request should not go through')
       } catch (e) {
         const expectedMessage =
-          'request to http://httpbin.org failed, reason: Nock: Disallowed net connect for "httpbin.org:80/"'
+          'request to http://httpbin.org/ failed, reason: Nock: Disallowed net connect for "httpbin.org:80/"'
         expect(e.message).to.equal(expectedMessage)
       }
     })
