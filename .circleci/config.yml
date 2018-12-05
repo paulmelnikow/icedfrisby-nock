@@ -1,0 +1,43 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: Install dependencies
+          command: npm ci
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+
+      - run:
+          name: Run tests
+          command: npm run test:js
+
+      - run:
+          name: Check lint
+          command: npm run lint
+          when: always
+
+      # - run:
+      #     name: Check prettier
+      #     command: npm run prettier-check
+      #     when: always
+
+      - run:
+          name: Update Coveralls
+          command: |
+            npm run coverage
+            node_modules/.bin/coveralls < coverage/lcov.info
