@@ -1,9 +1,15 @@
 # icedfrisby-nock
 
-[![CircleCI](https://img.shields.io/circleci/project/github/paulmelnikow/icedfrisby-nock.svg)](https://circleci.com/gh/paulmelnikow/icedfrisby-nock)
-[![Coveralls](https://img.shields.io/coveralls/paulmelnikow/icedfrisby-nock.svg)](https://coveralls.io/github/paulmelnikow/icedfrisby-nock)
-[![npm](https://img.shields.io/npm/v/icedfrisby-nock.svg)](https://www.npmjs.com/package/icedfrisby-nock)
-[![npm](https://img.shields.io/npm/l/icedfrisby-nock.svg)](https://www.npmjs.com/package/icedfrisby-nock)
+[![version](https://img.shields.io/npm/v/icedfrisby-nock.svg?style=flat-square)][npm]
+[![license](https://img.shields.io/npm/l/icedfrisby-nock.svg?style=flat-square)][npm]
+[![build](https://img.shields.io/circleci/project/github/paulmelnikow/icedfrisby-nock.svg?style=flat-square)][build]
+[![coverage](https://img.shields.io/coveralls/paulmelnikow/icedfrisby-nock.svg?style=flat-square)][coverage]
+[![code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)][prettier]
+
+[npm]: https://npmjs.com/icedfrisby-nock
+[build]: https://circleci.com/gh/paulmelnikow/icedfrisby-nock/tree/master
+[coverage]: https://coveralls.io/github/paulmelnikow/icedfrisby-nock
+[prettier]: https://prettier.io/
 
 Concise support for mock requests in [IcedFrisby][].
 
