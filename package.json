@@ -41,7 +41,7 @@
     "mixwith": "^0.1.1",
     "mocha": "^5.2.0",
     "nock": "^10.0.3",
-    "node-fetch": "^1.6.3",
+    "node-fetch": "^2.3.0",
     "prettier": "^1.15.3",
     "prettier-check": "^2.0.0"
   },
