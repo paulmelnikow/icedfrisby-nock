@@ -46,7 +46,7 @@
     "prettier-check": "^2.0.0"
   },
   "peerDependencies": {
-    "icedfrisby": ">= 1.2.0",
+    "icedfrisby": ">= 1.2.0 || 2.0.0-alpha.2",
     "nock": "*"
   },
   "engine": {
