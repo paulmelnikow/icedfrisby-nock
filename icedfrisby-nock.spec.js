@@ -144,27 +144,32 @@ describe('icedfrisby-nock', function() {
       .toss()
   })
 
-  describe('conditional intercept', function () {
-    it('sets up a mock which works correctly if condition true', function () {
-      frisby.create(this.test.title)
+  describe('conditional intercept', function() {
+    it('sets up a mock which works correctly if condition true', function() {
+      frisby
+        .create(this.test.title)
         .post('http://example.com/test')
-        .interceptIf(true, nock => nock('http://example.com')
-          .post('/test')
-          .reply(418, { someKey: 'someValue' }))
+        .interceptIf(true, nock =>
+          nock('http://example.com')
+            .post('/test')
+            .reply(418, { someKey: 'someValue' })
+        )
         .expectStatus(418)
         .expectJSON({ someKey: 'someValue' })
         .toss()
     })
 
-    it('does not set up a mock if condition false', function () {
-      frisby.create(this.test.title)
+    it('does not set up a mock if condition false', function() {
+      frisby
+        .create(this.test.title)
         .get('http://httpbin.org')
-        .interceptIf(false, nock => nock('http://httpbin.org')
-          .get('/')
-          .reply(418, { someKey: 'someValue' }))
+        .interceptIf(false, nock =>
+          nock('http://httpbin.org')
+            .get('/')
+            .reply(418, { someKey: 'someValue' })
+        )
         .expectStatus(200)
         .toss()
     })
   })
-
 })

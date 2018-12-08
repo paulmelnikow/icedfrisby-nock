@@ -43,7 +43,7 @@ const factory = superclass =>
     // @param condition The condition on which the intercept will be set or not
     // @param setup The setup function, receives `nock` and returns a nock object
     interceptIf(condition, setup) {
-        return condition ? this.intercept(setup) : this
+      return condition ? this.intercept(setup) : this
     }
 
     // Disallow unexpected remote network connections by simulating failure.
