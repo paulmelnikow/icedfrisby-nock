@@ -31,6 +31,14 @@ const factory = superclass => class IcedFrisbyNock extends superclass {
     return this
   }
 
+  // Delegates to `intercept()` only if the condition evaluates to `true`.
+  //
+  // @param condition The condition on which the intercept will be set or not
+  // @param setup The setup function, receives `nock` and returns a nock object
+  conditionalIntercept (condition, setup) {
+    return condition === true ? this.intercept(setup) : this
+  }
+
   // Disallow unexpected remote network connections by simulating failure.
   // Allows connections to localhost. Invoked automatically by `intercept()`.
   networkOff () {

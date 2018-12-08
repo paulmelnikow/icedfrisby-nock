@@ -68,7 +68,20 @@ frisby.create(...)
   .toss()
 ```
 
-When using `intercept()` or `networkOff()`, the plugin restores network access
+Mock one request only if a condition evaluates to `true`.
+
+```js
+const someCondition = true
+frisby.create(...)
+  .get(...)
+  .conditionalIntercept(someCondition, nock => nock('http://example.com')
+    .get('/foobar')
+    .reply(200))
+  .expectJSON(...)
+  .toss()
+```
+
+When using `intercept()`, `conditionalIntercept()` or `networkOff()`, the plugin restores network access
 when the test finishes.
 
 For the Nock API, refer to the [Nock docs][].
