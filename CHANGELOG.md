@@ -1,12 +1,14 @@
 # Changelog
 
-## [Unreleased]
+## 1.1.0 -- Dec. 8, 2018
 
-## [1.0.0]
+- Add `interceptIf()` function for conditionally intercepting.
+
+## 1.0.0 -- May 3, 2017
 
 - Compatible with icedfrisby 1.2.0, which officially supports plugins.
 
-## [0.3.0]
+## 0.3.0 -- Apr. 18, 2017
 
 - Clean up reliably, using `finally()` hooks
 - Remove `enableNetConnect()` in favor of `networkOff()` and `networkOn()`.
@@ -14,18 +16,11 @@
 - Compatible with icedfrisby 1.0.0
 - Improve test coverage
 
-## [0.2.0]
+## 0.2.0 -- Apr. 15, 2017
 
 - Unfork icedfrisby, since this is compatible with 1.0.0
 - Remove hacks needed for old version of icedfrisby
 
-## 0.1.0
-
-2017-04-12
+## 0.1.0 -- Apr. 12, 2017
 
 Initial release.
-
-[unreleased]: https://github.com/paulmelnikow/icedfrisby-nock/compare/1.0.0...HEAD
-[1.0.0]: https://github.com/paulmelnikow/icedfrisby-nock/compare/1.0.0...0.3.0
-[0.3.0]: https://github.com/paulmelnikow/icedfrisby-nock/compare/0.2.0...0.3.0
-[0.2.0]: https://github.com/paulmelnikow/icedfrisby-nock/compare/0.1.0...0.2.0
