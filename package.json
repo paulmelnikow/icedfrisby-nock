@@ -14,6 +14,8 @@
   "scripts": {
     "coverage": "istanbul cover _mocha '**/*.spec.js'",
     "lint": "eslint '**/*.js'",
+    "prettier": "prettier --write \"**/*.{md,js}\"",
+    "prettier-check": "prettier-check \"**/*.{md,js}\"",
     "test:js": "mocha '**/*.spec.js'",
     "test": "npm run lint && npm run test:js"
   },
@@ -24,16 +26,24 @@
   },
   "devDependencies": {
     "caught": "^0.1.1",
-    "chai": "^3.5.0",
-    "coveralls": "^2.13.0",
-    "eslint": "^3.19.0",
-    "eslint-plugin-pnm": "^2.0.0",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.2",
+    "eslint": "^5.9.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "icedfrisby": "^1.2.0",
     "istanbul": "^0.4.5",
     "mixwith": "^0.1.1",
-    "mocha": "^3.2.0",
-    "nock": "^9.0.13",
-    "node-fetch": "^1.6.3"
+    "mocha": "^5.2.0",
+    "nock": "^10.0.3",
+    "node-fetch": "^2.3.0",
+    "prettier": "^1.15.3",
+    "prettier-check": "^2.0.0"
   },
   "peerDependencies": {
     "icedfrisby": ">= 1.2.0",
