@@ -38,12 +38,12 @@ const factory = superclass =>
       return this
     }
 
-    // Delegates to `intercept()` only if the condition evaluates to `true`.
+    // Delegates to `intercept()` only if the condition is truthy.
     //
     // @param condition The condition on which the intercept will be set or not
     // @param setup The setup function, receives `nock` and returns a nock object
-    conditionalIntercept(condition, setup) {
-        return condition === true ? this.intercept(setup) : this
+    interceptIf(condition, setup) {
+        return condition ? this.intercept(setup) : this
     }
 
     // Disallow unexpected remote network connections by simulating failure.
