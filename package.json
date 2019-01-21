@@ -36,7 +36,7 @@
     "istanbul": "^0.4.5",
     "mixwith": "^0.1.1",
     "mocha": "^5.2.0",
-    "nock": "11.0.0-beta.3",
+    "nock": "11.0.0-beta.4",
     "node-fetch": "^2.3.0",
     "prettier": "^1.15.3",
     "prettier-check": "^2.0.0"
