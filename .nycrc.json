@@ -1,0 +1,17 @@
+{
+  "reporter": [
+    "json",
+    "lcov",
+    "text-summary"
+  ],
+  "all": true,
+  "clean": false,
+  "report-dir": "coverage",
+  "include": [
+    "**/*.js"
+  ],
+  "exclude": [
+    "**/*.spec.js",
+    "coverage/"
+  ]
+}

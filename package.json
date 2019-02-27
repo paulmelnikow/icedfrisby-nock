@@ -12,7 +12,7 @@
   "license": "MIT",
   "main": "icedfrisby-nock.js",
   "scripts": {
-    "coverage": "istanbul cover _mocha '**/*.spec.js'",
+    "coverage": "nyc npm run test:js",
     "lint": "eslint '**/*.js'",
     "prettier": "prettier --write \"**/*.{md,js}\"",
     "prettier-check": "prettier-check \"**/*.{md,js}\"",
@@ -33,11 +33,11 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "icedfrisby": "^1.2.0",
-    "istanbul": "^0.4.5",
     "mixwith": "^0.1.1",
     "mocha": "^6.0.0",
     "nock": "11.0.0-beta.6",
     "node-fetch": "^2.3.0",
+    "nyc": "^13.3.0",
     "prettier": "^1.15.3",
     "prettier-check": "^2.0.0"
   },
