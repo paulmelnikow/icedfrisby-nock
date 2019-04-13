@@ -33,7 +33,7 @@ jobs:
 
       - run:
           name: Check prettier
-          command: npm run prettier-check
+          command: npm run prettier:check
           when: always
 
       - run:
