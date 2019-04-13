@@ -15,7 +15,7 @@
     "coverage": "nyc npm run test:js",
     "lint": "eslint '**/*.js'",
     "prettier": "prettier --write \"**/*.{md,js}\"",
-    "prettier-check": "prettier-check \"**/*.{md,js}\"",
+    "prettier:check": "prettier --check \"**/*.{md,js}\"",
     "test:js": "mocha '**/*.spec.js'",
     "test": "npm run lint && npm run test:js"
   },
@@ -38,8 +38,7 @@
     "nock": "11.0.0-beta.6",
     "node-fetch": "^2.3.0",
     "nyc": "^13.3.0",
-    "prettier": "^1.15.3",
-    "prettier-check": "^2.0.0"
+    "prettier": "^1.15.3"
   },
   "peerDependencies": {
     "icedfrisby": ">= 1.2.0 || 2.0.0-alpha.2",
