@@ -37,7 +37,7 @@
     "mocha": "^6.0.0",
     "nock": "11.0.0-beta.8",
     "node-fetch": "^2.3.0",
-    "nyc": "^13.3.0",
+    "nyc": "^14.0.0",
     "prettier": "^1.15.3"
   },
   "peerDependencies": {
