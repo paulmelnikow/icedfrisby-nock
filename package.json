@@ -27,7 +27,7 @@
     "chai-as-promised": "^7.1.1",
     "coveralls": "^3.0.2",
     "eslint": "^5.9.0",
-    "eslint-config-prettier": "^4.0.0",
+    "eslint-config-prettier": "^5.1.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^9.1.0",
@@ -36,7 +36,7 @@
     "icedfrisby": "^2.0.0",
     "mixwith": "^0.1.1",
     "mocha": "^6.0.0",
-    "nock": "11.0.0-beta.17",
+    "nock": "11.0.0-beta.20",
     "node-fetch": "^2.3.0",
     "nyc": "^14.0.0",
     "prettier": "^1.15.3"
