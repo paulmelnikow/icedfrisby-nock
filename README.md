@@ -35,11 +35,11 @@ Allow connections to localhost, but simulate failure for any other HTTP
 connections.
 
 ```js
-frisby.create(...)
+await frisby.create(...)
   .get(...)
   .networkOff()
   .expectJSON(...)
-  .toss()
+  .run()
 ```
 
 Mock one request, and simulate failure for any other HTTP connection.
@@ -47,39 +47,39 @@ Mock one request, and simulate failure for any other HTTP connection.
 `intercept()` automatically invokes `networkOff()`.
 
 ```js
-frisby.create(...)
+await frisby.create(...)
   .get(...)
   .intercept(nock => nock('http://example.com')
     .get('/foobar')
     .reply(200))
   .expectJSON(...)
-  .toss()
+  .run()
 ```
 
 Mock one request and allow all other HTTP connections.
 
 ```js
-frisby.create(...)
+await frisby.create(...)
   .get(...)
   .intercept(nock => nock('http://example.com')
     .get('/foobar')
     .reply(200))
   .networkOn()
   .expectJSON(...)
-  .toss()
+  .run()
 ```
 
 Mock one request only if a condition is truthy.
 
 ```js
 const someCondition = true
-frisby.create(...)
+await frisby.create(...)
   .get(...)
   .interceptIf(someCondition, nock => nock('http://example.com')
     .get('/foobar')
     .reply(200))
   .expectJSON(...)
-  .toss()
+  .run()
 ```
 
 When using `intercept()`, `interceptIf()` or `networkOff()`, the plugin restores network access
