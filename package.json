@@ -24,6 +24,7 @@
   "devDependencies": {
     "caught": "^0.1.1",
     "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "coveralls": "^3.0.2",
     "eslint": "^5.9.0",
     "eslint-config-prettier": "^5.1.0",
