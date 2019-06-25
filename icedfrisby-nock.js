@@ -9,6 +9,11 @@ const nock = require('nock')
 // http://justinfagnani.com/2015/12/21/real-mixins-with-javascript-classes/
 const factory = superclass =>
   class IcedFrisbyNock extends superclass {
+    constructor(...args) {
+      super(...args)
+      this.hasIntercept = false
+    }
+
     // Set up intercepts. Pass in a setup function which takes one argument,
     // `nock`, and returns a nock scope. The function is invoked before the
     // test, and the returned scope is asserted afterward.
@@ -20,6 +25,8 @@ const factory = superclass =>
     //
     // @param setup The setup function, receives `nock` and returns a nock object
     intercept(setup) {
+      this.hasIntercept = true
+
       let nockScope
 
       this.before(() => {
