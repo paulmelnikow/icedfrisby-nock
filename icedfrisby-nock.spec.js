@@ -1,16 +1,18 @@
 'use strict'
 
 const nock = require('nock')
-const expect = require('chai').expect
+const chai = require('chai')
 const fetch = require('node-fetch')
 const caught = require('caught')
 const { mix } = require('mixwith')
 
+chai.use(require('chai-as-promised'))
 const frisby = mix(require('icedfrisby')).with(require('./icedfrisby-nock'))
+const { expect } = chai
 
 describe('icedfrisby-nock', function() {
-  it('sets up a mock which works correctly', function() {
-    frisby
+  it('sets up a mock which works correctly', async function() {
+    await frisby
       .create(this.test.title)
       .post('http://example.com/test')
       .intercept(nock =>
@@ -20,13 +22,13 @@ describe('icedfrisby-nock', function() {
       )
       .expectStatus(418)
       .expectJSON({ someKey: 'someValue' })
-      .toss()
+      .run()
   })
 
-  describe('disables network connections', function() {
+  it('disables network connections', async function() {
     let networkRequest
 
-    frisby
+    await frisby
       .create('disables network connection')
       .post('http://example.com/test')
       .intercept(nock =>
@@ -39,18 +41,11 @@ describe('icedfrisby-nock', function() {
           networkRequest = caught(fetch('http://httpbin.org'))
         })
       })
-      .toss()
+      .run()
 
-    after(async function() {
-      try {
-        await networkRequest
-        expect.fail('request should not go through')
-      } catch (e) {
-        const expectedMessage =
-          'request to http://httpbin.org/ failed, reason: Nock: Disallowed net connect for "httpbin.org:80/"'
-        expect(e.message).to.equal(expectedMessage)
-      }
-    })
+    expect(networkRequest).to.be.rejectedWith(
+      'request to http://httpbin.org/ failed, reason: Nock: Disallowed net connect for "httpbin.org:80/"'
+    )
   })
 
   describe('when the test has finished', function() {
@@ -59,64 +54,69 @@ describe('icedfrisby-nock', function() {
         expect(nock.activeMocks()).to.have.lengthOf(0)
       })
 
-      it('re-enables network connections', function() {
-        frisby
+      it('re-enables network connections', async function() {
+        await frisby
           .create(this.test.title)
           .get('http://httpbin.org')
           .expectStatus(200)
+          .run()
       })
     }
 
-    context('and succeeded', function() {
-      frisby
-        .create('when the test has finished and succeeded')
-        .post('http://example.com/test')
-        .intercept(nock =>
-          nock('http://example.com')
-            .post('/test')
-            .reply(418, () => {
-              expect(nock.activeMocks()).to.have.lengthOf(1)
-              return { someKey: 'someValue' }
-            })
-        )
-        .expectStatus(418)
-        .expectJSON({ someKey: 'someValue' })
-        .toss()
+    context('and succeeded', async function() {
+      beforeEach(async function() {
+        await frisby
+          .create('when the test has finished and succeeded')
+          .post('http://example.com/test')
+          .intercept(nock =>
+            nock('http://example.com')
+              .post('/test')
+              .reply(418, () => {
+                expect(nock.activeMocks()).to.have.lengthOf(1)
+                return { someKey: 'someValue' }
+              })
+          )
+          .expectStatus(418)
+          .expectJSON({ someKey: 'someValue' })
+          .run()
+      })
 
       itShouldReset()
     })
 
     context('and failed', function() {
-      const test = frisby
-        .create('when the test has finished and failed')
-        .post('http://example.com/test')
-        .intercept(nock =>
-          nock('http://example.com')
-            .post('/test')
-            .reply(418, () => {
-              expect(nock.activeMocks()).to.have.lengthOf(1)
-              return { someKey: 'someValue' }
-            })
-        )
-        .expectStatus(200)
-      // Intercept the raised exception to prevent Mocha from receiving it.
-      test._invokeExpects = function() {
-        try {
-          test.prototype._invokeExpects.call(test)
-        } catch (e) {
-          return
+      beforeEach(async function() {
+        const test = frisby
+          .create('when the test has finished and failed')
+          .post('http://example.com/test')
+          .intercept(nock =>
+            nock('http://example.com')
+              .post('/test')
+              .reply(418, () => {
+                expect(nock.activeMocks()).to.have.lengthOf(1)
+                return { someKey: 'someValue' }
+              })
+          )
+          .expectStatus(200)
+        // Intercept the raised exception to prevent Mocha from receiving it.
+        test._invokeExpects = function() {
+          try {
+            test.prototype._invokeExpects.call(test)
+          } catch (e) {
+            return
+          }
+          // If we catch the exeption, as expected, we should never get here.
+          expect.fail('The failed expectation should have raised an exception')
         }
-        // If we catch the exeption, as expected, we should never get here.
-        expect.fail('The failed expectation should have raised an exception')
-      }
-      test.toss()
+        await test.run()
+      })
 
       itShouldReset()
     })
   })
 
-  it('networkOn() enables network connections', function() {
-    frisby
+  it('networkOn() enables network connections', async function() {
+    await frisby
       .create(this.test.title)
       .post('http://example.com/test')
       .intercept(nock =>
@@ -125,27 +125,27 @@ describe('icedfrisby-nock', function() {
           .reply(418, { someKey: 'someValue' })
       )
       .networkOn()
-      .after(() => {
-        frisby
-          .create(this.test.title)
-          .get('http://httpbin.org')
-          .expectStatus(200)
-      })
-      .toss()
+      .run()
+
+    await frisby
+      .create(this.test.title)
+      .get('http://httpbin.org')
+      .expectStatus(200)
+      .run()
   })
 
-  it('networkOff() disables network connections', function() {
-    frisby
+  it('networkOff() disables network connections', async function() {
+    await frisby
       .create(this.test.title)
       .post('http://example.com/test')
       .networkOff()
       .expectStatus(599)
-      .toss()
+      .run()
   })
 
   describe('conditional intercept', function() {
-    it('sets up a mock which works correctly if condition true', function() {
-      frisby
+    it('sets up a mock which works correctly if condition true', async function() {
+      await frisby
         .create(this.test.title)
         .post('http://example.com/test')
         .interceptIf(true, nock =>
@@ -155,11 +155,11 @@ describe('icedfrisby-nock', function() {
         )
         .expectStatus(418)
         .expectJSON({ someKey: 'someValue' })
-        .toss()
+        .run()
     })
 
-    it('does not set up a mock if condition false', function() {
-      frisby
+    it('does not set up a mock if condition false', async function() {
+      await frisby
         .create(this.test.title)
         .get('http://httpbin.org')
         .interceptIf(false, nock =>
@@ -168,7 +168,7 @@ describe('icedfrisby-nock', function() {
             .reply(418, { someKey: 'someValue' })
         )
         .expectStatus(200)
-        .toss()
+        .run()
     })
   })
 })
