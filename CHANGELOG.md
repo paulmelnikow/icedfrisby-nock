@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0 -- Jun. 25, 2019
+
+- Require IcedFrisby 2.1+.
+
 ## 1.2.0 -- Jun. 25, 2019
 
 - Add `hasIntercept` property for checking whether an intercept was requested.
