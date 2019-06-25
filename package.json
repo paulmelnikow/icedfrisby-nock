@@ -32,7 +32,7 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "icedfrisby": "^1.2.0",
+    "icedfrisby": "^2.0.0",
     "mixwith": "^0.1.1",
     "mocha": "^6.0.0",
     "nock": "11.0.0-beta.17",
