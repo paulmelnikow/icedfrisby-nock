@@ -55,7 +55,7 @@ describe('icedfrisby-nock', function() {
       })
       .run()
 
-    expect(networkRequest).to.be.rejectedWith(
+    await expect(networkRequest).to.be.rejectedWith(
       'request to http://httpbin.org/ failed, reason: Nock: Disallowed net connect for "httpbin.org:80/"'
     )
   })
@@ -170,14 +170,9 @@ describe('icedfrisby-nock', function() {
         .run()
     })
 
-<<<<<<< HEAD
+    // This test requires a network connection.
     it('does not set up a mock if condition false', async function() {
       await frisby
-=======
-    // This test requires a network connection.
-    it('does not set up a mock if condition false', function() {
-      frisby
->>>>>>> master
         .create(this.test.title)
         .get('http://httpbin.org')
         .interceptIf(false, nock =>
