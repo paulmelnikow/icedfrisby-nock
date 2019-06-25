@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 -- Jun. 25, 2019
+
+- Add `hasIntercept` property for checking whether an intercept was requested.
+
 ## 1.1.0 -- Dec. 8, 2018
 
 - Add `interceptIf()` function for conditionally intercepting.

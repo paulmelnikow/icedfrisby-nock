@@ -23,6 +23,18 @@ describe('icedfrisby-nock', function() {
       .toss()
   })
 
+  it('sets hasIntercept to true', function() {
+    const test = frisby
+      .create(this.test.title)
+      .post('http://example.com/test')
+      .intercept(nock =>
+        nock('http://example.com')
+          .post('/test')
+          .reply(418, { someKey: 'someValue' })
+      )
+    expect(test.hasIntercept).to.equal(true)
+  })
+
   describe('disables network connections', function() {
     let networkRequest
 
@@ -158,6 +170,7 @@ describe('icedfrisby-nock', function() {
         .toss()
     })
 
+    // This test requires a network connection.
     it('does not set up a mock if condition false', function() {
       frisby
         .create(this.test.title)
@@ -169,6 +182,19 @@ describe('icedfrisby-nock', function() {
         )
         .expectStatus(200)
         .toss()
+    })
+
+    // This test requires a network connection.
+    it('does sets hasIntercept to false if condition false', function() {
+      const test = frisby
+        .create(this.test.title)
+        .get('http://httpbin.org')
+        .interceptIf(false, nock =>
+          nock('http://httpbin.org')
+            .get('/')
+            .reply(418, { someKey: 'someValue' })
+        )
+      expect(test.hasIntercept).to.equal(false)
     })
   })
 })
