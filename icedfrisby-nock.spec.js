@@ -100,11 +100,10 @@ describe('icedfrisby-nock', function() {
         )
         .expectStatus(200)
       // Intercept the raised exception to prevent Mocha from receiving it.
-      test._invokeExpects = function(done) {
+      test._invokeExpects = function() {
         try {
-          test.prototype._invokeExpects.call(test, done)
+          test.prototype._invokeExpects.call(test)
         } catch (e) {
-          done()
           return
         }
         // If we catch the exeption, as expected, we should never get here.
