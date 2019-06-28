@@ -85,6 +85,13 @@ await frisby.create(...)
 When using `intercept()`, `interceptIf()` or `networkOff()`, the plugin restores network access
 when the test finishes.
 
+To check if a Frisby object has an intercept set, inspect the `hasIntercept`
+property.
+
+To skip the test if an intercept is present, invoke `.skipIfIntercepted()` on
+the chain. This is useful with when invoked from a shared setup function or
+when performing conditional intercepts.
+
 For the Nock API, refer to the [Nock docs][].
 
 For the IcedFrisby API, refer to the [IcedFrisby docs][].

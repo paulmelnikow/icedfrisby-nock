@@ -14,6 +14,11 @@ const factory = superclass =>
       this.hasIntercept = false
     }
 
+    skipIfIntercepted() {
+      this.skipWhen(() => this.hasIntercept)
+      return this
+    }
+
     // Set up intercepts. Pass in a setup function which takes one argument,
     // `nock`, and returns a nock scope. The function is invoked before the
     // test, and the returned scope is asserted afterward.

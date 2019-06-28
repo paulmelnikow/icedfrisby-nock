@@ -197,4 +197,16 @@ describe('icedfrisby-nock', function() {
       expect(test.hasIntercept).to.equal(false)
     })
   })
+
+  it('`skipIfIntercepted()` skips the test when it has an intercept', async function() {
+    await frisby
+      .create(this.test.title)
+      .post('http://example.com/test')
+      .skipIfIntercepted()
+      .intercept(() => {})
+      .before(() => {
+        throw Error('This should not be run')
+      })
+      .run()
+  })
 })
