@@ -2,7 +2,7 @@
 
 ## 2.0.0 -- Jun. 25, 2019
 
-- Require IcedFrisby 2.1+.
+- Require IcedFrisby 2.2+.
 
 ## 1.2.0 -- Jun. 25, 2019
 
