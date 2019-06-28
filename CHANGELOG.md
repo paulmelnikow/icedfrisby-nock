@@ -2,11 +2,9 @@
 
 ## 2.0.0 -- Jun. 25, 2019
 
-- Require IcedFrisby 2.2+.
-
-## 1.2.0 -- Jun. 25, 2019
-
+- BREAKING CHANGE: Require IcedFrisby 2.2+.
 - Add `hasIntercept` property for checking whether an intercept was requested.
+- Add `skipIfIntercepted()` method.
 
 ## 1.1.0 -- Dec. 8, 2018
 
