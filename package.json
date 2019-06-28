@@ -33,7 +33,7 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "icedfrisby": "^2.1.0",
+    "icedfrisby": "^2.2.0",
     "mixwith": "^0.1.1",
     "mocha": "^6.0.0",
     "nock": "11.0.0-beta.20",
@@ -42,7 +42,7 @@
     "prettier": "^1.15.3"
   },
   "peerDependencies": {
-    "icedfrisby": ">= 2.1.0",
+    "icedfrisby": ">= 2.2.0",
     "nock": "*"
   },
   "engine": {
