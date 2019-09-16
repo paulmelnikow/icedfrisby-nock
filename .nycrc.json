@@ -1,17 +1,12 @@
 {
-  "reporter": [
-    "json",
-    "lcov",
-    "text-summary"
-  ],
+  "reporter": ["json", "lcov", "text-summary"],
   "all": true,
   "clean": false,
   "report-dir": "coverage",
-  "include": [
-    "**/*.js"
-  ],
-  "exclude": [
-    "**/*.spec.js",
-    "coverage/"
-  ]
+  "include": ["**/*.js"],
+  "exclude": ["**/*.spec.js", "coverage/"],
+  "branches": 100,
+  "lines": 100,
+  "functions": 100,
+  "statements": 100
 }

@@ -12,11 +12,10 @@
   "license": "MIT",
   "main": "icedfrisby-nock.js",
   "scripts": {
-    "coverage": "nyc npm run test:js",
     "lint": "eslint '**/*.js'",
-    "prettier": "prettier --write \"**/*.{md,js}\"",
-    "prettier:check": "prettier --check \"**/*.{md,js}\"",
-    "test:js": "mocha '**/*.spec.js'",
+    "prettier": "prettier --write \"**/*.{md,js,json,yml}\"",
+    "prettier:check": "prettier --check \"**/*.{md,js,json,yml}\"",
+    "test:js": "nyc mocha '**/*.spec.js'",
     "test": "npm run lint && npm run test:js"
   },
   "files": [],
@@ -25,7 +24,6 @@
     "caught": "^0.1.1",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "coveralls": "^3.0.2",
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
     "eslint-config-standard": "^14.0.1",

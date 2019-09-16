@@ -35,9 +35,3 @@ jobs:
           name: Check prettier
           command: npm run prettier:check
           when: always
-
-      - run:
-          name: Update Coveralls
-          command: |
-            npm run coverage
-            node_modules/.bin/coveralls < coverage/lcov.info
