@@ -34,7 +34,7 @@
     "icedfrisby": "^2.2.0",
     "mixwith": "^0.1.1",
     "mocha": "^6.0.0",
-    "nock": "11.3.5",
+    "nock": "11.7.0",
     "node-fetch": "^2.3.0",
     "nyc": "^14.0.0",
     "prettier": "^1.15.3"
