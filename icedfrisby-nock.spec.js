@@ -10,8 +10,8 @@ chai.use(require('chai-as-promised'))
 const frisby = mix(require('icedfrisby')).with(require('./icedfrisby-nock'))
 const { expect } = chai
 
-describe('icedfrisby-nock', function() {
-  it('sets up a mock which works correctly', async function() {
+describe('icedfrisby-nock', function () {
+  it('sets up a mock which works correctly', async function () {
     await frisby
       .create(this.test.title)
       .post('http://example.com/test')
@@ -25,7 +25,7 @@ describe('icedfrisby-nock', function() {
       .run()
   })
 
-  it('sets hasIntercept to true', function() {
+  it('sets hasIntercept to true', function () {
     const test = frisby
       .create(this.test.title)
       .post('http://example.com/test')
@@ -37,7 +37,7 @@ describe('icedfrisby-nock', function() {
     expect(test.hasIntercept).to.equal(true)
   })
 
-  it('disables network connections', async function() {
+  it('disables network connections', async function () {
     let networkRequest
 
     await frisby
@@ -60,13 +60,13 @@ describe('icedfrisby-nock', function() {
     )
   })
 
-  describe('when the test has finished', function() {
+  describe('when the test has finished', function () {
     const itShouldReset = () => {
-      it('removes the mock', function() {
+      it('removes the mock', function () {
         expect(nock.activeMocks()).to.have.lengthOf(0)
       })
 
-      it('re-enables network connections', async function() {
+      it('re-enables network connections', async function () {
         await frisby
           .create(this.test.title)
           .get('http://httpbin.org')
@@ -75,8 +75,8 @@ describe('icedfrisby-nock', function() {
       })
     }
 
-    context('and succeeded', async function() {
-      beforeEach(async function() {
+    context('and succeeded', async function () {
+      beforeEach(async function () {
         await frisby
           .create('when the test has finished and succeeded')
           .post('http://example.com/test')
@@ -96,8 +96,8 @@ describe('icedfrisby-nock', function() {
       itShouldReset()
     })
 
-    context('and failed', function() {
-      beforeEach(async function() {
+    context('and failed', function () {
+      beforeEach(async function () {
         const test = frisby
           .create('when the test has finished and failed')
           .post('http://example.com/test')
@@ -111,7 +111,7 @@ describe('icedfrisby-nock', function() {
           )
           .expectStatus(200)
         // Intercept the raised exception to prevent Mocha from receiving it.
-        test._invokeExpects = function() {
+        test._invokeExpects = function () {
           try {
             test.prototype._invokeExpects.call(test)
           } catch (e) {
@@ -127,7 +127,7 @@ describe('icedfrisby-nock', function() {
     })
   })
 
-  it('networkOn() enables network connections', async function() {
+  it('networkOn() enables network connections', async function () {
     await frisby
       .create(this.test.title)
       .post('http://example.com/test')
@@ -146,7 +146,7 @@ describe('icedfrisby-nock', function() {
       .run()
   })
 
-  it('networkOff() disables network connections', async function() {
+  it('networkOff() disables network connections', async function () {
     await frisby
       .create(this.test.title)
       .post('http://example.com/test')
@@ -155,8 +155,8 @@ describe('icedfrisby-nock', function() {
       .run()
   })
 
-  describe('conditional intercept', function() {
-    it('sets up a mock which works correctly if condition true', async function() {
+  describe('conditional intercept', function () {
+    it('sets up a mock which works correctly if condition true', async function () {
       await frisby
         .create(this.test.title)
         .post('http://example.com/test')
@@ -171,7 +171,7 @@ describe('icedfrisby-nock', function() {
     })
 
     // This test requires a network connection.
-    it('does not set up a mock if condition false', async function() {
+    it('does not set up a mock if condition false', async function () {
       await frisby
         .create(this.test.title)
         .get('http://httpbin.org')
@@ -185,7 +185,7 @@ describe('icedfrisby-nock', function() {
     })
 
     // This test requires a network connection.
-    it('does sets hasIntercept to false if condition false', function() {
+    it('does sets hasIntercept to false if condition false', function () {
       const test = frisby
         .create(this.test.title)
         .get('http://httpbin.org')
@@ -198,7 +198,7 @@ describe('icedfrisby-nock', function() {
     })
   })
 
-  it('`skipIfIntercepted()` skips the test when it has an intercept', async function() {
+  it('`skipIfIntercepted()` skips the test when it has an intercept', async function () {
     await frisby
       .create(this.test.title)
       .post('http://example.com/test')
