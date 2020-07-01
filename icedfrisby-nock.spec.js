@@ -11,10 +11,11 @@ chai.use(require('chai-as-promised'))
 const frisby = mix(require('icedfrisby')).with(require('./icedfrisby-nock'))
 const { expect } = chai
 
-let server
+let server, port
 before(async function () {
   server = http.createServer((request, response) => response.end())
   await server.listen()
+  port = server.address().port
 })
 after(async function () {
   await server.close()
@@ -79,7 +80,7 @@ describe('icedfrisby-nock', function () {
       it('re-enables network connections', async function () {
         await frisby
           .create(this.test.title)
-          .get(`http://localhost:${server.address().port}`)
+          .get(`http://localhost:${port}`)
           .expectStatus(200)
           .run()
       })
@@ -145,7 +146,7 @@ describe('icedfrisby-nock', function () {
 
     await frisby
       .create(this.test.title)
-      .get(`http://localhost:${server.address().port}`)
+      .get(`http://localhost:${port}`)
       .expectStatus(200)
       .run()
   })
@@ -175,7 +176,6 @@ describe('icedfrisby-nock', function () {
     })
 
     it('does not set up a mock if condition false', async function () {
-      const { port } = server.address()
       await frisby
         .create(this.test.title)
         .get(`http://localhost:${port}`)
@@ -190,7 +190,6 @@ describe('icedfrisby-nock', function () {
 
     // This test requires a network connection.
     it('does sets hasIntercept to false if condition false', function () {
-      const { port } = server.address()
       const test = frisby
         .create(this.test.title)
         .get(`http://localhost:${port}`)
