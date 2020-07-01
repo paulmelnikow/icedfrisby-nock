@@ -1,5 +1,6 @@
 'use strict'
 
+const http = require('http')
 const nock = require('nock')
 const chai = require('chai')
 const fetch = require('node-fetch')
@@ -10,14 +11,24 @@ chai.use(require('chai-as-promised'))
 const frisby = mix(require('icedfrisby')).with(require('./icedfrisby-nock'))
 const { expect } = chai
 
+let server, port
+before(async function () {
+  server = http.createServer((request, response) => response.end())
+  await server.listen()
+  port = server.address().port
+})
+after(async function () {
+  await server.close()
+})
+
 describe('icedfrisby-nock', function () {
   it('sets up a mock which works correctly', async function () {
     await frisby
       .create(this.test.title)
-      .post('http://example.com/test')
+      .post('http://example.test/')
       .intercept(nock =>
-        nock('http://example.com')
-          .post('/test')
+        nock('http://example.test')
+          .post('/')
           .reply(418, { someKey: 'someValue' })
       )
       .expectStatus(418)
@@ -28,10 +39,10 @@ describe('icedfrisby-nock', function () {
   it('sets hasIntercept to true', function () {
     const test = frisby
       .create(this.test.title)
-      .post('http://example.com/test')
+      .post('http://example.test/')
       .intercept(nock =>
-        nock('http://example.com')
-          .post('/test')
+        nock('http://example.test')
+          .post('/')
           .reply(418, { someKey: 'someValue' })
       )
     expect(test.hasIntercept).to.equal(true)
@@ -42,21 +53,21 @@ describe('icedfrisby-nock', function () {
 
     await frisby
       .create('disables network connection')
-      .post('http://example.com/test')
+      .post('http://example.test/')
       .intercept(nock =>
-        nock('http://example.com')
-          .post('/test')
+        nock('http://example.test')
+          .post('/')
           .reply(418, { someKey: 'someValue' })
       )
       .before(() => {
         process.nextTick(() => {
-          networkRequest = caught(fetch('http://httpbin.org'))
+          networkRequest = caught(fetch('http://other.test'))
         })
       })
       .run()
 
     await expect(networkRequest).to.be.rejectedWith(
-      'request to http://httpbin.org/ failed, reason: Nock: Disallowed net connect for "httpbin.org:80/"'
+      'request to http://other.test/ failed, reason: Nock: Disallowed net connect for "other.test:80/"'
     )
   })
 
@@ -69,24 +80,21 @@ describe('icedfrisby-nock', function () {
       it('re-enables network connections', async function () {
         await frisby
           .create(this.test.title)
-          .get('http://httpbin.org')
+          .get(`http://localhost:${port}`)
           .expectStatus(200)
           .run()
       })
     }
 
     context('and succeeded', async function () {
-      beforeEach(async function () {
+      before(async function () {
         await frisby
           .create('when the test has finished and succeeded')
-          .post('http://example.com/test')
+          .post('http://example.test/')
           .intercept(nock =>
-            nock('http://example.com')
-              .post('/test')
-              .reply(418, () => {
-                expect(nock.activeMocks()).to.have.lengthOf(1)
-                return { someKey: 'someValue' }
-              })
+            nock('http://example.test')
+              .post('/')
+              .reply(418, () => ({ someKey: 'someValue' }))
           )
           .expectStatus(418)
           .expectJSON({ someKey: 'someValue' })
@@ -97,17 +105,14 @@ describe('icedfrisby-nock', function () {
     })
 
     context('and failed', function () {
-      beforeEach(async function () {
+      before(async function () {
         const test = frisby
           .create('when the test has finished and failed')
           .post('http://example.com/test')
           .intercept(nock =>
             nock('http://example.com')
               .post('/test')
-              .reply(418, () => {
-                expect(nock.activeMocks()).to.have.lengthOf(1)
-                return { someKey: 'someValue' }
-              })
+              .reply(418, () => ({ someKey: 'someValue' }))
           )
           .expectStatus(200)
         // Intercept the raised exception to prevent Mocha from receiving it.
@@ -130,9 +135,9 @@ describe('icedfrisby-nock', function () {
   it('networkOn() enables network connections', async function () {
     await frisby
       .create(this.test.title)
-      .post('http://example.com/test')
+      .post('http://example.test/test')
       .intercept(nock =>
-        nock('http://example.com')
+        nock('http://example.test')
           .post('/test')
           .reply(418, { someKey: 'someValue' })
       )
@@ -141,7 +146,7 @@ describe('icedfrisby-nock', function () {
 
     await frisby
       .create(this.test.title)
-      .get('http://httpbin.org')
+      .get(`http://localhost:${port}`)
       .expectStatus(200)
       .run()
   })
@@ -149,7 +154,7 @@ describe('icedfrisby-nock', function () {
   it('networkOff() disables network connections', async function () {
     await frisby
       .create(this.test.title)
-      .post('http://example.com/test')
+      .post('http://example.test/')
       .networkOff()
       .expectStatus(599)
       .run()
@@ -159,10 +164,10 @@ describe('icedfrisby-nock', function () {
     it('sets up a mock which works correctly if condition true', async function () {
       await frisby
         .create(this.test.title)
-        .post('http://example.com/test')
+        .post('http://example.test/')
         .interceptIf(true, nock =>
-          nock('http://example.com')
-            .post('/test')
+          nock('http://example.test')
+            .post('/')
             .reply(418, { someKey: 'someValue' })
         )
         .expectStatus(418)
@@ -170,13 +175,12 @@ describe('icedfrisby-nock', function () {
         .run()
     })
 
-    // This test requires a network connection.
     it('does not set up a mock if condition false', async function () {
       await frisby
         .create(this.test.title)
-        .get('http://httpbin.org')
+        .get(`http://localhost:${port}`)
         .interceptIf(false, nock =>
-          nock('http://httpbin.org')
+          nock(`http://localhost:${port}`)
             .get('/')
             .reply(418, { someKey: 'someValue' })
         )
@@ -188,9 +192,9 @@ describe('icedfrisby-nock', function () {
     it('does sets hasIntercept to false if condition false', function () {
       const test = frisby
         .create(this.test.title)
-        .get('http://httpbin.org')
+        .get(`http://localhost:${port}`)
         .interceptIf(false, nock =>
-          nock('http://httpbin.org')
+          nock(`http://localhost:${port}`)
             .get('/')
             .reply(418, { someKey: 'someValue' })
         )
@@ -201,7 +205,7 @@ describe('icedfrisby-nock', function () {
   it('`skipIfIntercepted()` skips the test when it has an intercept', async function () {
     await frisby
       .create(this.test.title)
-      .post('http://example.com/test')
+      .post('http://example.test/')
       .skipIfIntercepted()
       .intercept(() => {})
       .before(() => {
