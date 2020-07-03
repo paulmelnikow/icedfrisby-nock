@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0 -- Jul. 3, 2020
+
+- Overhaul nock initialization + cleanup
+
 ## 2.0.0 -- Jun. 25, 2019
 
 - BREAKING CHANGE: Require IcedFrisby 2.2+.
