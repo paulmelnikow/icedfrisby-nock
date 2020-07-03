@@ -2,6 +2,19 @@
 
 const nock = require('nock')
 
+function nockActivate() {
+  if (!nock.isActive()) {
+    nock.activate()
+  }
+  nock.disableNetConnect()
+}
+
+function nockCleanup() {
+  nock.abortPendingRequests()
+  nock.cleanAll()
+  nock.restore()
+}
+
 // This is a subclass factory. It returns a constructor function (i.e., a
 // Frisby subclass) with these methods added in.
 //
@@ -15,8 +28,7 @@ const factory = superclass =>
     }
 
     skipIfIntercepted() {
-      this.skipWhen(() => this.hasIntercept)
-      return this
+      return this.skipWhen(() => this.hasIntercept)
     }
 
     // Set up intercepts. Pass in a setup function which takes one argument,
@@ -35,17 +47,14 @@ const factory = superclass =>
       let nockScope
 
       this.before(() => {
+        nockActivate()
         nockScope = setup(nock)
       })
       // https://github.com/node-nock/nock#expectations
       this.after(() => {
         nockScope.done()
       })
-      this.finally(() => {
-        nock.cleanAll()
-      })
-
-      this.networkOff()
+      this.finally(nockCleanup)
 
       return this
     }
@@ -61,21 +70,23 @@ const factory = superclass =>
     // Disallow unexpected remote network connections by simulating failure.
     // Allows connections to localhost. Invoked automatically by `intercept()`.
     networkOff() {
-      this.before(() => {
+      return this.before(() => {
+        nockActivate()
         nock.enableNetConnect(/(localhost|127\.0\.0\.1)/)
-      })
-      this.finally(() => {
+      }).finally(() => {
+        nockCleanup()
         nock.enableNetConnect()
       })
-      return this
     }
 
     // Enable remote network connections.
     networkOn() {
-      this.before(() => {
+      return this.before(() => {
+        nockActivate()
         nock.enableNetConnect()
+      }).finally(() => {
+        nockCleanup()
       })
-      return this
     }
   }
 module.exports = factory
