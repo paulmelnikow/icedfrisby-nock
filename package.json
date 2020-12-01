@@ -30,7 +30,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-standard": "^5.0.0",
     "icedfrisby": "^4.0.0",
     "mixwith": "^0.1.1",
     "mocha": "^8.0.1",
