@@ -33,7 +33,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "icedfrisby": "^4.0.0",
     "mixwith": "^0.1.1",
-    "mocha": "^8.0.1",
+    "mocha": "^10.1.0",
     "nock": "13.0.4",
     "node-fetch": "^2.3.0",
     "nyc": "^15.0.0",
